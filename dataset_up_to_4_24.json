@@ -1,0 +1,445 @@
+{
+    "data" : [
+        {
+            "date" : "04242020",
+            "total_cases" : 2943,
+            "new_cases" : 117,
+            "new_tests" : 1826,
+            "hospitalizations" : 683,
+            "intensive_care" : 225,
+            "deaths" : 111
+        },
+        {
+            "date" : "04232020",
+            "total_cases" : 2826,
+            "new_cases" : 183,
+            "new_tests" : 3122,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04222020",
+            "total_cases" : 2643,
+            "new_cases" : 152,
+            "new_tests" : 2255,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04212020",
+            "total_cases" : 2491,
+            "new_cases" : 57,
+            "new_tests" : 1514,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04202020",
+            "total_cases" : 2434,
+            "new_cases" : 109,
+            "new_tests" : 1016,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04192020",
+            "total_cases" : 2325,
+            "new_cases" : 57,
+            "new_tests" : 1310,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04182020",
+            "total_cases" : 2268,
+            "new_cases" : 55,
+            "new_tests" : 955,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04172020",
+            "total_cases" : 2213,
+            "new_cases" : 55,
+            "new_tests" : 1393,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04162020",
+            "total_cases" : 2158,
+            "new_cases" : 71,
+            "new_tests" : 1114,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04152020",
+            "total_cases" : 2087,
+            "new_cases" : 75,
+            "new_tests" : 1248,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04142020",
+            "total_cases" : 2012,
+            "new_cases" : 82,
+            "new_tests" : 836,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04132020",
+            "total_cases" : 1930,
+            "new_cases" : 83,
+            "new_tests" : 919,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04122020",
+            "total_cases" : 1847,
+            "new_cases" : 43,
+            "new_tests" : 898,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04112020",
+            "total_cases" : 1804,
+            "new_cases" : 43,
+            "new_tests" : 804,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04102020",
+            "total_cases" : 1761,
+            "new_cases" : 68,
+            "new_tests" : 1077,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04092020",
+            "total_cases" : 1693,
+            "new_cases" : 65,
+            "new_tests" : 1255,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04082020",
+            "total_cases" : 1628,
+            "new_cases" : 98,
+            "new_tests" : 920,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04072020",
+            "total_cases" : 1530,
+            "new_cases" : 76,
+            "new_tests" : 842,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04062020",
+            "total_cases" : 1454,
+            "new_cases" : 50,
+            "new_tests" : 1846,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04052020",
+            "total_cases" : 1404,
+            "new_cases" : 78,
+            "new_tests" : 827,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04042020",
+            "total_cases" : 1326,
+            "new_cases" : 117,
+            "new_tests" : 807,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04032020",
+            "total_cases" : 1209,
+            "new_cases" : 97,
+            "new_tests" : 1025,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04022020",
+            "total_cases" : 1112,
+            "new_cases" : 146,
+            "new_tests" : 1882,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "04012020",
+            "total_cases" : 966,
+            "new_cases" : 146,
+            "new_tests" : 2606,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03312020",
+            "total_cases" : 849,
+            "new_cases" : 117,
+            "new_tests" : 989,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03302020",
+            "total_cases" : 734,
+            "new_cases" : 131,
+            "new_tests" : 1538,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03292020",
+            "total_cases" : 603,
+            "new_cases" : 84,
+            "new_tests" : 687,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03282020",
+            "total_cases" : 519,
+            "new_cases" : 31,
+            "new_tests" : 1275,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03272020",
+            "total_cases" : 488,
+            "new_cases" : 71,
+            "new_tests" : 776,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03262020",
+            "total_cases" : 417,
+            "new_cases" : 76,
+            "new_tests" : 1023,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03252020",
+            "total_cases" : 341,
+            "new_cases" : 58,
+            "new_tests" : 1087,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03242020",
+            "total_cases" : 283,
+            "new_cases" : 51,
+            "new_tests" : 504,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03232020",
+            "total_cases" : 232,
+            "new_cases" : 35,
+            "new_tests" : 382,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03222020",
+            "total_cases" : 197,
+            "new_cases" : 54,
+            "new_tests" : 422,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03212020",
+            "total_cases" : 143,
+            "new_cases" : 25,
+            "new_tests" : 788,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03202020",
+            "total_cases" : 118,
+            "new_cases" : 18,
+            "new_tests" : 93,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03192020",
+            "total_cases" : 100,
+            "new_cases" : 30,
+            "new_tests" : 320,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03182020",
+            "total_cases" : 70,
+            "new_cases" : 11,
+            "new_tests" : 143,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03172020",
+            "total_cases" : 59,
+            "new_cases" : 9,
+            "new_tests" : 77,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03162020",
+            "total_cases" : 50,
+            "new_cases" : 13,
+            "new_tests" : 25,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03152020",
+            "total_cases" : 37,
+            "new_cases" : 12,
+            "new_tests" : 25,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03142020",
+            "total_cases" : 25,
+            "new_cases" : 6,
+            "new_tests" : 14,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03132020",
+            "total_cases" : 19,
+            "new_cases" : 9,
+            "new_tests" : 52,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03122020",
+            "total_cases" : 10,
+            "new_cases" : 5,
+            "new_tests" : null,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03112020",
+            "total_cases" : 5,
+            "new_cases" : 1,
+            "new_tests" : null,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03102020",
+            "total_cases" : 4,
+            "new_cases" : 2,
+            "new_tests" : null,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03092020",
+            "total_cases" : 2,
+            "new_cases" : 0,
+            "new_tests" : null,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03082020",
+            "total_cases" : 2,
+            "new_cases" : 1,
+            "new_tests" : null,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
+            "date" : "03072020",
+            "total_cases" : 1,
+            "new_cases" : 1,
+            "new_tests" : null,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        }
+    ]
+}
