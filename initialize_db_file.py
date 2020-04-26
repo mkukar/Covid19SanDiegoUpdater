@@ -24,7 +24,7 @@ JSON_DATASET_EXAMPLE = {
 
 CREATE_DATA_TABLE_CMD = ("CREATE TABLE DATA "
     "(ID INTEGER PRIMARY KEY,"
-    "DATE CHAR(8) NOT NULL,"
+    "DATE CHAR(8) NOT NULL UNIQUE,"
     "TOTAL_CASES INTEGER,"
     "NEW_CASES INTEGER,"
     "NEW_TESTS INTEGER,"
@@ -81,6 +81,7 @@ if __name__ == "__main__":
                     ":date, :total_cases, :new_cases, :new_tests, :hospitalizations, :intensive_care, :deaths)"
                     )
                 conn.execute(insertCommand, entry)
+            conn.commit()
         except Exception as e:
             print("ERROR: Problem reading your JSON data file.")
             print("ERROR: " + str(e))
