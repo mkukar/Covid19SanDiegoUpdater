@@ -10,18 +10,69 @@ from web_reader import *
 
 class WebTestCases(unittest.TestCase):
 
+    EMPTY_DB_FILE = "empty_test_database.db"
+
+    DB_OLDER_TIMESTAMP = {
+        'date' : '01012020',
+        'total_cases' : 1,
+        'new_cases' : 1,
+        'new_tests' : 1,
+        'hospitalizations' : 0,
+        'intensive_care' : 5,
+        'deaths' : 0
+    }
+    DB_SAME_TIMESTAMP = {
+        'date' : '04242020',
+        'total_cases' : 1,
+        'new_cases' : 1,
+        'new_tests' : 1,
+        'hospitalizations' : 0,
+        'intensive_care' : 5,
+        'deaths' : 0
+    }
+    DB_NEWER_TIMESTAMP = {
+        'date' : '04252020',
+        'total_cases' : 1,
+        'new_cases' : 1,
+        'new_tests' : 1,
+        'hospitalizations' : 0,
+        'intensive_care' : 5,
+        'deaths' : 0
+    }
+    VALID_WEBSITE_FILENAME = "test_valid_data_website.html"
+
+    def setUp(self):
+        # copies dummy database that is empty
+        shutil.copyfile(self.EMPTY_DB_FILE, "temp_" + self.EMPTY_DB_FILE)
+
+        # constructs urls from filenames and path
+        self.valid_website_url = "file:///" + os.path.dirname(os.path.abspath(__file__)) + '/' + self.VALID_WEBSITE_FILENAME
+
+        self.wr = WebReader("temp_" + self.EMPTY_DB_FILE)
+
+    def tearDown(self):
+        # deletes our dummy database file
+        os.remove("temp_" + self.EMPTY_DB_FILE)
+
     def test_isNewDataAvailableReturnsFalseIfWebTimestampOlderThanLatestDbTimestamp(self):
-        self.assertTrue(False)
+        self.wr.addEntryToDatabase(self.DB_NEWER_TIMESTAMP)
+        self.assertFalse(self.wr.isNewDataAvailable(url=self.valid_website_url))
     
     def test_isNewDataAvailableReturnsTrueIfWebTimestampNewerThanLatestDbTimestamp(self):
-        self.assertTrue(False)
+        self.wr.addEntryToDatabase(self.DB_OLDER_TIMESTAMP)
+        self.assertTrue(self.wr.isNewDataAvailable(url=self.valid_website_url))
     
     def test_isNewDataAvailableReturnsFalseIfCannotReadWebsite(self):
-        self.assertTrue(False)
+        self.wr.addEntryToDatabase(self.DB_OLDER_TIMESTAMP)
+        self.assertFalse(self.wr.isNewDataAvailable(url="invalid"))
     
     def test_isNewDataAvailableReturnsFalseIfWebTimestampMatchesDbTimestamp(self):
-        self.assertTrue(False)
+        self.wr.addEntryToDatabase(self.DB_SAME_TIMESTAMP)
+        self.assertFalse(self.wr.isNewDataAvailable(url=self.valid_website_url))
     
+    def test_isNewDataAvailableReturnsTrueIfNoDataInDatabase(self):
+        self.assertTrue(self.wr.isNewDataAvailable())
+
     def test_readLatestEntryFromWebReturnsValidDatasetOnValidWebsite(self):
         self.assertTrue(False)
     

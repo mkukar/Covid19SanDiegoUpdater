@@ -5,10 +5,16 @@
 
 import sqlite3
 from collections import Mapping
+from bs4 import BeautifulSoup
+import urllib
+import requests
+from datetime import datetime
 
 class WebReader:
 
     dbFilename = "covid19.db"
+
+    SD_COVID19_URL = "https://www.sandiegocounty.gov/content/sdc/hhsa/programs/phs/community_epidemiology/dc/2019-nCoV/status.html"
 
     REQUIRED_ENTRY_FIELDS = ['date', 'total_cases', 'new_cases', 'new_tests', 'hospitalizations', 'intensive_care', 'deaths']
 
@@ -50,9 +56,6 @@ class WebReader:
             return False
         return True
 
-    def isNewDataAvailable(self):
-        pass
-
     def readLatestEntryFromDatabase(self):
         res = None
         try:
@@ -71,6 +74,49 @@ class WebReader:
             resDict[field] = res[idx]
         return resDict
 
-    def readLatestEntryFromWeb(self):
-        pass
+    def isNewDataAvailable(self, url=None):
+        if url is None:
+            url = self.SD_COVID19_URL
+        # gets latest db entry and extracts date
+        try:
+            dbDate = self.readLatestEntryFromDatabase()
+            if dbDate is None:
+                # no database entry, so we return True (anything is newer)
+                return True
+            dbDate = datetime.strptime(dbDate['date'], '%m%d%Y')
+        except:
+            return False
+
+        webDate = None
+        # reads latest update field from the website and extracts date
+        try:
+            source = urllib.request.urlopen(url).read()
+            bs = BeautifulSoup(source, "lxml")
+            # location of date is in a string located at
+            # table -> tr -> td -> "table updated X, with date through Y"
+            table = bs.find("table")
+            # gets first td in the first tr
+            table_rows = table.tbody.find_all("tr")
+            td = table_rows[0].find_all("td")[0]
+            # extract the date after "with data through"
+            rawDateStr = str(td).split("with data through ")[1]
+            rawDateStr = rawDateStr.split(".</i>")[0]
+            webDate = datetime.strptime(rawDateStr, '%B %d, %Y')
+        except:
+            return False
+
+        # if date is newer, return True, else false
+        if webDate > dbDate:
+            return True
+        else:
+            return False
+
+    def readLatestEntryFromWeb(self, url=None):
+        if url is None:
+            url = self.SD_COVID19_URL
+        # opens website
+        # reads the date and converts to our format MMDDYYYY
+        # reads the table data
+        # returns as a dictionary
+        return None
 
