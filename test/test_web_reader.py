@@ -45,6 +45,15 @@ class DatabaseTestCases(unittest.TestCase):
         'intensive_care' : 5,
         'deaths' : 0
     }
+    VALID_DB_ENTRY_OLDER = {
+        'date' : '01012020',
+        'total_cases' : 1,
+        'new_cases' : 1,
+        'new_tests' : 1,
+        'hospitalizations' : 0,
+        'intensive_care' : 5,
+        'deaths' : 0
+    }
 
     INCOMPLETE_DB_ENTRY = {
         'date' : '01022020',
@@ -97,10 +106,12 @@ class DatabaseTestCases(unittest.TestCase):
         conn.close()
 
     def test_readLatestEntryFromDatabaseReturnsMostRecentTimestampFromDatabase(self):
-        self.assertTrue(False)
+        self.wr.addEntryToDatabase(self.VALID_DB_ENTRY)
+        self.wr.addEntryToDatabase(self.VALID_DB_ENTRY_OLDER)
+        self.assertDictEqual(self.VALID_DB_ENTRY, self.wr.readLatestEntryFromDatabase())
     
     def test_readLatestEntryFromDatabaseReturnsNoneIfNoDataPresent(self):
-        self.assertTrue(False)
+        self.assertIsNone(self.wr.readLatestEntryFromDatabase())
 
 if __name__ == "__main__":
     unittest.main()

@@ -15,6 +15,7 @@ class WebReader:
     ADD_ENTRY_COMMAND = ("INSERT INTO DATA (DATE, TOTAL_CASES, NEW_CASES, NEW_TESTS, HOSPITALIZATIONS, INTENSIVE_CARE, DEATHS) VALUES ("
         ":date, :total_cases, :new_cases, :new_tests, :hospitalizations, :intensive_care, :deaths);"
     )
+    LATEST_ENTRY_QUERY = "SELECT DATE, TOTAL_CASES, NEW_CASES, NEW_TESTS, HOSPITALIZATIONS, INTENSIVE_CARE, DEATHS from DATA ORDER BY strftime('%m%d%Y', DATE) ASC"
 
     def __init__(self, dbFilename):
         # stores filename of database
@@ -53,7 +54,22 @@ class WebReader:
         pass
 
     def readLatestEntryFromDatabase(self):
-        pass
+        res = None
+        try:
+            conn = sqlite3.connect(self.dbFilename)
+            c = conn.cursor()
+            c.execute(self.LATEST_ENTRY_QUERY)
+            res = c.fetchone()
+            conn.close()
+        except Exception as e:
+            return None
+        if res is None:
+            return None
+        # now maps res to a dict
+        resDict = {}
+        for idx, field in enumerate(self.REQUIRED_ENTRY_FIELDS):
+            resDict[field] = res[idx]
+        return resDict
 
     def readLatestEntryFromWeb(self):
         pass
