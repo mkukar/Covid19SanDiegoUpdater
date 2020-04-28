@@ -1,0 +1,17 @@
+{
+    "email_credentials" : {
+        "user" : "example@gmail.com",
+        "pass" : "password1!",
+        "url" : "smtp.gmail.com"
+    },
+    "phone_credentials" : [
+        {
+            "number" : "",
+            "carrier" : "VERIZON"
+        },
+        {
+            "number" : "",
+            "carrier" : "TMOBILE"
+        }
+    ]
+}
