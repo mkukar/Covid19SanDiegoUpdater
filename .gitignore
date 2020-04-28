@@ -1,4 +1,5 @@
-# ignore config file
+# ignore config file and db file
+covid19.db
 config.json
 
 # Byte-compiled / optimized / DLL files
