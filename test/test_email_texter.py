@@ -39,8 +39,8 @@ class IntegrationTestCases(unittest.TestCase):
             data = json.load(f)
         try:
             self.VALID_EMAIL = self.et.getPhoneNumberEmailAddress(
-                data['phone_credentials']['number'],
-                data['phone_credentials']['carrier']
+                data['phone_credentials'][0]['number'],
+                data['phone_credentials'][0]['carrier']
             )
             self.VALID_EMAIL_USERNAME = data['email_credentials']['user']
             self.VALID_EMAIL_PASSWORD = data['email_credentials']['pass']
@@ -162,7 +162,7 @@ class UnitTestCases(unittest.TestCase):
         with open(self.CONFIG_FILE) as f:
             data = json.load(f)
         try:
-            self.VALID_PHONE_NUMBER = data['phone_credentials']['number']
+            self.VALID_PHONE_NUMBER = data['phone_credentials'][0]['number']
         except Exception as e:
             print(e)
         
