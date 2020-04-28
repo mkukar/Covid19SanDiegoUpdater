@@ -13,7 +13,7 @@ class WebTestCases(unittest.TestCase):
     EMPTY_DB_FILE = "empty_test_database.db"
 
     DB_OLDER_TIMESTAMP = {
-        'date' : '01012020',
+        'date' : '2020-01-01',
         'total_cases' : 1,
         'new_cases' : 1,
         'new_tests' : 1,
@@ -22,7 +22,7 @@ class WebTestCases(unittest.TestCase):
         'deaths' : 0
     }
     DB_SAME_TIMESTAMP = {
-        'date' : '04242020',
+        'date' : '2020-04-24',
         'total_cases' : 1,
         'new_cases' : 1,
         'new_tests' : 1,
@@ -31,7 +31,7 @@ class WebTestCases(unittest.TestCase):
         'deaths' : 0
     }
     DB_NEWER_TIMESTAMP = {
-        'date' : '04252020',
+        'date' : '2020-04-25',
         'total_cases' : 1,
         'new_cases' : 1,
         'new_tests' : 1,
@@ -40,6 +40,17 @@ class WebTestCases(unittest.TestCase):
         'deaths' : 0
     }
     VALID_WEBSITE_FILENAME = "test_valid_data_website.html"
+    CORRUPTED_WEBSITE_FILENAME = "test_corrupted_data_website.html"
+
+    VALID_WEBSITE_DATA = {
+        "date" : "2020-04-24",
+        "total_cases" : 2943,
+        "new_cases" : None,
+        "new_tests" : None,
+        "hospitalizations" : 683,
+        "intensive_care" : 225,
+        "deaths" : 111
+    }
 
     def setUp(self):
         # copies dummy database that is empty
@@ -47,6 +58,7 @@ class WebTestCases(unittest.TestCase):
 
         # constructs urls from filenames and path
         self.valid_website_url = "file:///" + os.path.dirname(os.path.abspath(__file__)) + '/' + self.VALID_WEBSITE_FILENAME
+        self.corrupted_website_url = "file:///" + os.path.dirname(os.path.abspath(__file__)) + '/' + self.CORRUPTED_WEBSITE_FILENAME
 
         self.wr = WebReader("temp_" + self.EMPTY_DB_FILE)
 
@@ -74,13 +86,13 @@ class WebTestCases(unittest.TestCase):
         self.assertTrue(self.wr.isNewDataAvailable())
 
     def test_readLatestEntryFromWebReturnsValidDatasetOnValidWebsite(self):
-        self.assertTrue(False)
+        self.assertDictEqual(self.VALID_WEBSITE_DATA, self.wr.readLatestEntryFromWeb(url=self.valid_website_url))
     
     def test_readLatestEntryFromWebReturnsNoneIfInvalidWebsiteData(self):
-        self.assertTrue(False)
+        self.assertIsNone(self.wr.readLatestEntryFromWeb(url=self.corrupted_website_url))
     
     def test_readLatestEntryFromWebReturnsNoneIfWebsiteInaccessible(self):
-        self.assertTrue(False)
+        self.assertIsNone(self.wr.readLatestEntryFromWeb(url="notarealwebsite"))
 
 
 class DatabaseTestCases(unittest.TestCase):
@@ -88,7 +100,7 @@ class DatabaseTestCases(unittest.TestCase):
     EMPTY_DB_FILE = "empty_test_database.db"
 
     VALID_DB_ENTRY = {
-        'date' : '01022020',
+        'date' : '2020-01-02',
         'total_cases' : 1,
         'new_cases' : 1,
         'new_tests' : 1,
@@ -97,7 +109,25 @@ class DatabaseTestCases(unittest.TestCase):
         'deaths' : 0
     }
     VALID_DB_ENTRY_OLDER = {
-        'date' : '01012020',
+        'date' : '2019-12-31',
+        'total_cases' : 1,
+        'new_cases' : 1,
+        'new_tests' : 1,
+        'hospitalizations' : 0,
+        'intensive_care' : 5,
+        'deaths' : 0
+    }
+    VALID_DB_ENTRY_ANOTHER_OLDER = {
+        'date' : '2020-01-01',
+        'total_cases' : 1,
+        'new_cases' : 1,
+        'new_tests' : 1,
+        'hospitalizations' : 0,
+        'intensive_care' : 5,
+        'deaths' : 0
+    }
+    VALID_DB_ENTRY_OLDER_AGAIN = {
+        'date' : '2019-01-03',
         'total_cases' : 1,
         'new_cases' : 1,
         'new_tests' : 1,
@@ -107,13 +137,13 @@ class DatabaseTestCases(unittest.TestCase):
     }
 
     INCOMPLETE_DB_ENTRY = {
-        'date' : '01022020',
+        'date' : '2020-01-02',
         'total_cases' : 1,
         'new_cases' : 1
     }
 
     BAD_RANGES_DB_ENTRY = {
-        'date' : '01022020',
+        'date' : '2020-01-02',
         'total_cases' : -1,
         'new_cases' : -1,
         'new_tests' : -1,
@@ -159,6 +189,8 @@ class DatabaseTestCases(unittest.TestCase):
     def test_readLatestEntryFromDatabaseReturnsMostRecentTimestampFromDatabase(self):
         self.wr.addEntryToDatabase(self.VALID_DB_ENTRY)
         self.wr.addEntryToDatabase(self.VALID_DB_ENTRY_OLDER)
+        self.wr.addEntryToDatabase(self.VALID_DB_ENTRY_OLDER_AGAIN)
+        self.wr.addEntryToDatabase(self.VALID_DB_ENTRY_ANOTHER_OLDER)
         self.assertDictEqual(self.VALID_DB_ENTRY, self.wr.readLatestEntryFromDatabase())
     
     def test_readLatestEntryFromDatabaseReturnsNoneIfNoDataPresent(self):

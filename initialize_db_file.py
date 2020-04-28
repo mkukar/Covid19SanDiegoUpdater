@@ -11,7 +11,7 @@ import argparse, sqlite3
 JSON_DATASET_EXAMPLE = {
     'data' : [
         {
-            'date' : 'MMDDYYYY',
+            'date' : 'YYYY-MM-DD',
             'total_cases' : '1',
             'new_cases' : '0',
             'new_tests' : '0',
@@ -24,7 +24,7 @@ JSON_DATASET_EXAMPLE = {
 
 CREATE_DATA_TABLE_CMD = ("CREATE TABLE DATA "
     "(ID INTEGER PRIMARY KEY,"
-    "DATE CHAR(8) NOT NULL UNIQUE,"
+    "DATE CHAR(10) NOT NULL UNIQUE,"
     "TOTAL_CASES INTEGER,"
     "NEW_CASES INTEGER,"
     "NEW_TESTS INTEGER,"
@@ -75,6 +75,8 @@ if __name__ == "__main__":
             with open(args.dataset) as f:
                 jsondata = json.load(f)
             for entry in jsondata['data']:
+                # changes date to YYYY-MM-DD FROM MMDDYYYY
+                entry['date'] = entry['date'][4:] + '-'+ entry['date'][0:2] + '-' + entry['date'][2:4]
                 # executes query to entry data into database
                 insertCommand = ("INSERT INTO DATA (DATE, TOTAL_CASES, NEW_CASES, NEW_TESTS, HOSPITALIZATIONS, INTENSIVE_CARE, DEATHS) "
                     "VALUES ("

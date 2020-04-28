@@ -21,7 +21,7 @@ class WebReader:
     ADD_ENTRY_COMMAND = ("INSERT INTO DATA (DATE, TOTAL_CASES, NEW_CASES, NEW_TESTS, HOSPITALIZATIONS, INTENSIVE_CARE, DEATHS) VALUES ("
         ":date, :total_cases, :new_cases, :new_tests, :hospitalizations, :intensive_care, :deaths);"
     )
-    LATEST_ENTRY_QUERY = "SELECT DATE, TOTAL_CASES, NEW_CASES, NEW_TESTS, HOSPITALIZATIONS, INTENSIVE_CARE, DEATHS from DATA ORDER BY strftime('%m%d%Y', DATE) ASC"
+    LATEST_ENTRY_QUERY = "SELECT DATE, TOTAL_CASES, NEW_CASES, NEW_TESTS, HOSPITALIZATIONS, INTENSIVE_CARE, DEATHS from DATA ORDER BY strftime('%Y-%m-%d', DATE) DESC"
 
     def __init__(self, dbFilename):
         # stores filename of database
@@ -39,6 +39,7 @@ class WebReader:
         # all fields except DATE must be greater than 0
         for field in self.REQUIRED_ENTRY_FIELDS:
             if field == 'date': continue
+            if entry[field] is None: continue # none is allowed for non-date
             # makes sure entry is able to be cast to an int type
             try:
                 int(entry[field])
@@ -83,7 +84,7 @@ class WebReader:
             if dbDate is None:
                 # no database entry, so we return True (anything is newer)
                 return True
-            dbDate = datetime.strptime(dbDate['date'], '%m%d%Y')
+            dbDate = datetime.strptime(dbDate['date'], '%Y-%m-%d')
         except:
             return False
 
@@ -114,9 +115,45 @@ class WebReader:
     def readLatestEntryFromWeb(self, url=None):
         if url is None:
             url = self.SD_COVID19_URL
-        # opens website
-        # reads the date and converts to our format MMDDYYYY
-        # reads the table data
+        
+        dataDict = {
+            'date' : None,
+            'total_cases' : None,
+            'new_cases' : None,
+            'new_tests' : None,
+            'hospitalizations' : None,
+            'intensive_care' : None,
+            'deaths' : None
+        }
+
+        try:
+            # opens website
+            source = urllib.request.urlopen(url).read()
+            bs = BeautifulSoup(source, "lxml")
+
+            # reads the table data
+            table = bs.find("table")
+            # gets first td in the first tr
+            table_rows = table.tbody.find_all("tr")
+            td = table_rows[0].find_all("td")[0]
+            # extract the date after "with data through"
+            rawDateStr = str(td).split("with data through ")[1]
+            rawDateStr = rawDateStr.split(".</i>")[0]
+            dataDict['date'] = datetime.strptime(rawDateStr, '%B %d, %Y').strftime('%Y-%m-%d')
+            # extracts the rest of the data available
+            for row in table_rows:
+                tds = row.find_all("td")
+                if "Total Positives" in tds[0].text:
+                    dataDict['total_cases'] = int(tds[1].text.replace(',',''))
+                elif "Hospitalizations" in tds[0].text:
+                    dataDict['hospitalizations'] = int(tds[1].text.replace(',',''))
+                elif "Intensive Care" in tds[0].text:
+                    dataDict['intensive_care'] = int(tds[1].text.replace(',',''))
+                elif "Deaths" in tds[0].text:
+                    dataDict['deaths'] = int(tds[1].text.replace(',',''))
+        except:
+            return None
+            
         # returns as a dictionary
-        return None
+        return dataDict
 
