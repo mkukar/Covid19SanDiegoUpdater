@@ -1,6 +1,15 @@
 {
     "data" : [
         {
+            "date" : "04252020",
+            "total_cases" : 3043,
+            "new_cases" : 100,
+            "new_tests" : 1297,
+            "hospitalizations" : null,
+            "intensive_care" : null,
+            "deaths" : null
+        },
+        {
             "date" : "04242020",
             "total_cases" : 2943,
             "new_cases" : 117,
