@@ -6,6 +6,7 @@ import sys, os, json, threading, argparse
 
 from web_reader import WebReader
 from email_texter import EmailTexter
+from data_analyzer import DataAnalyzer
 
 class Covid19Updater:
 
@@ -15,6 +16,7 @@ class Covid19Updater:
     def __init__(self, configFile, dbFile):
         self.wr = WebReader(dbFile)
         self.et = EmailTexter()
+        self.da = DataAnalyzer(dbFile)
         if not self.parseConfig(configFile):
             # fail construction as the config is invalid
             raise Exception("Invalid config file") 
@@ -80,8 +82,36 @@ class Covid19Updater:
                     textMessage,
                     emailserver
                 )
+
+            # generates a second message that is analysis
+            analysisTextMessage = self.getAnalysisMessage()
+            for email in self.phoneNumberEmails:
+                self.et.sendMessage(
+                    email,
+                    analysisTextMessage,
+                    emailserver
+                )
             emailserver.close()
     
+    # generates an analysis message based on the latest data
+    def getAnalysisMessage(self):
+        factBlurbs = ["Analysis:"]
+        # format is up to 3 facts, ranked by importance
+        # first up is if latest cases is max of all time
+        if self.da.checkIfLatestIsMaxNewCases():
+            factBlurbs.append("- Today is the highest number of new cases so far")
+        # now gets the 3-day trend to see if we're going up or down
+        dayTrend = self.da.getNewCasesTrend(days=3)
+        if dayTrend != 0:
+            factBlurbs.append(f'- The 3-day trend of new cases is {dayTrend:.2f}')
+        # now gets the 7-day average to see what most days are
+        weekAverage = self.da.getLatestNewCasesAverage(days=7)
+        if weekAverage != 0:
+            factBlurbs.append(f'- The 7-day average of new cases is {weekAverage:.2f}')
+
+        outputMessage = '\n'.join(factBlurbs)
+        return outputMessage
+
     # daemon that runs the check update every X seconds
     def checkUpdateDaemon(self, frequencySecs):
         self.checkForUpdateAndSend()

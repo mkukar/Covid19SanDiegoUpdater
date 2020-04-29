@@ -18,14 +18,18 @@ class TestCases(unittest.TestCase):
     CORRUPTED_CONFIG = "corrupted_configuration_file.json"
 
     EMPTY_DB_FILE = "empty_test_database.db"
+    POPULATED_DB_FILE = "basic_populated_database.db"
 
     def setUp(self):
-        # copies dummy database that is empty
+        # copies dummy database that is empty and populated
         shutil.copyfile(self.EMPTY_DB_FILE, "temp_" + self.EMPTY_DB_FILE)
+        shutil.copyfile(self.POPULATED_DB_FILE, "temp_" + self.POPULATED_DB_FILE)
+
 
     def tearDown(self):
-        # deletes our dummy database file
+        # deletes our dummy database files
         os.remove("temp_" + self.EMPTY_DB_FILE)
+        os.remove("temp_" + self.POPULATED_DB_FILE)
 
     def test_parseConfigReturnsTrueWithValidConfigFile(self):
         # parseConfig is called on construction, so ensure we don't throw
@@ -42,12 +46,17 @@ class TestCases(unittest.TestCase):
 
     def test_checkForUpdateAndSend(self):
         try:
-            cu = Covid19Updater(self.ACTUAL_CONFIG, "temp_" + self.EMPTY_DB_FILE)
+            cu = Covid19Updater(self.ACTUAL_CONFIG, "temp_" + self.POPULATED_DB_FILE)
             cu.checkForUpdateAndSend(forceSend=True)
         except:
             self.fail()
 
-
+    def test_getAnalysisMessage(self):
+        try:
+            cu = Covid19Updater(self.ACTUAL_CONFIG, "temp_" + self.POPULATED_DB_FILE)
+            cu.getAnalysisMessage()
+        except:
+            self.fail()
 
 if __name__ == "__main__":
     unittest.main()
