@@ -103,11 +103,11 @@ class Covid19Updater:
         # now gets the 3-day trend to see if we're going up or down
         dayTrend = self.da.getNewCasesTrend(days=3)
         if dayTrend != 0:
-            factBlurbs.append(f'- The 3-day trend of new cases is {dayTrend:.2f}')
+            factBlurbs.append(f'- The 3-day trend of new cases is {dayTrend:.2f}/day')
         # now gets the 7-day average to see what most days are
         weekAverage = self.da.getLatestNewCasesAverage(days=7)
         if weekAverage != 0:
-            factBlurbs.append(f'- The 7-day average of new cases is {weekAverage:.2f}')
+            factBlurbs.append(f'- The 7-day average of new cases is {weekAverage:.2f}/day')
 
         outputMessage = '\n'.join(factBlurbs)
         return outputMessage
