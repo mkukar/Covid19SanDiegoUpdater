@@ -1,7 +1,6 @@
 # creates a new empty db file with all tables, etc.
 # NOTE - Use as your own risk! Data is not backed up or restorable.
-# CB: Michael Kukar
-# Copyright Michael Kukar 2020.
+# Copyright Michael Kukar 2020. MIT License.
 
 import sys, os, json
 import argparse, sqlite3
@@ -37,8 +36,8 @@ CREATE_DATA_TABLE_CMD = ("CREATE TABLE DATA "
 if __name__ == "__main__":
     # reads in command line arguments
     parser = argparse.ArgumentParser(
-        description='Creates a new database file for Covid19Updater',
-        epilog="Copyright Michael Kukar 2020."
+        description='Creates a new sqlite database file for Covid19Updater',
+        epilog="Copyright Michael Kukar 2020. MIT License."
         )
     parser.add_argument('--file', '-f', default='covid19.db', dest='filename',
                         help='name of database file')

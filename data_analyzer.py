@@ -1,6 +1,5 @@
 # analyzes the latest data for trends and patterns
-# CB: Michael Kukar
-# Copyright Michael Kukar 2020.
+# Copyright Michael Kukar 2020. MIT License.
 
 import sqlite3
 import statistics
@@ -10,9 +9,13 @@ class DataAnalyzer:
     LATEST_ENTRY_QUERY = "SELECT DATE, TOTAL_CASES, NEW_CASES, NEW_TESTS, HOSPITALIZATIONS, INTENSIVE_CARE, DEATHS from DATA ORDER BY strftime('%Y-%m-%d', DATE) DESC"
     MAX_NEW_CASES_ENTRY_QUERY = "SELECT DATE, TOTAL_CASES, MAX(NEW_CASES), NEW_TESTS, HOSPITALIZATIONS, INTENSIVE_CARE, DEATHS from DATA"
 
+
     def __init__(self, dbFilename):
         self.dbFilename = dbFilename
 
+
+    # checks if latest entry has the maximum new cases of entire db
+    # return : true if latest is max, false otherwise
     def checkIfLatestIsMaxNewCases(self):
         # connects to database
         conn = sqlite3.connect(self.dbFilename)
@@ -29,6 +32,11 @@ class DataAnalyzer:
         else:
             return False
     
+
+    # trends the new cases difference between X number of latest days in the database
+    # NOTE - If one of the days new_cases entry is None, will ignore it but not load another day
+    # days   : (optional) number of days to trend
+    # return : float of trend between days
     def getNewCasesTrend(self, days=3):
         # with only 1 or less entries, cannot get trend (difference)
         if days < 2:
@@ -55,7 +63,12 @@ class DataAnalyzer:
         trend = statistics.mean(diffBetweenEachDay)
 
         return trend
-    
+
+
+    # averages the X latest new_cases days
+    # NOTE - If one of the days new_cases entry is None, will ignore it but not load another day
+    # days   : (optional) number of days to average
+    # return : float of average of new_cases across the days
     def getLatestNewCasesAverage(self, days=7):
         # cannot have zero or negative days
         if days < 1:

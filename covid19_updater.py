@@ -1,6 +1,6 @@
 # main file
-# CB: Michael Kukar
-# Copyright Michael Kukar 2020.
+# Sends updates and analysis on current state of COVID-19 in San Diego 
+# Copyright Michael Kukar 2020. MIT License.
 
 import sys, os, json, threading, argparse
 
@@ -13,6 +13,10 @@ class Covid19Updater:
     configData = {}
     phoneNumberEmails = []
 
+    # constructor
+    # sets up objects and reads config file
+    # configFile : json configuration file
+    # dbFile     : sqlite database file
     def __init__(self, configFile, dbFile):
         self.wr = WebReader(dbFile)
         self.et = EmailTexter()
@@ -23,7 +27,10 @@ class Covid19Updater:
         for phoneData in self.configData["phone_credentials"]:
             self.phoneNumberEmails.append(self.et.getPhoneNumberEmailAddress(phoneData['number'], phoneData['carrier']))
 
+
     # reads json config file into configData dict
+    # configFile : json configuration file
+    # return     : True on success, false on fail
     def parseConfig(self, configFile):
         try:
             with open(configFile) as f:
@@ -46,7 +53,10 @@ class Covid19Updater:
                 return False
         return True
 
+
     # checks for an update and sends message if one is available
+    # forceSend : (optional) always sends the update
+    # return    : None
     def checkForUpdateAndSend(self, forceSend=False):
         if self.wr.isNewDataAvailable() or forceSend:
             # gets new data
@@ -93,7 +103,9 @@ class Covid19Updater:
                 )
             emailserver.close()
     
+
     # generates an analysis message based on the latest data
+    # return : string of analysis data in text message format
     def getAnalysisMessage(self):
         factBlurbs = ["Analysis:"]
         # format is up to 3 facts, ranked by importance
@@ -112,7 +124,9 @@ class Covid19Updater:
         outputMessage = '\n'.join(factBlurbs)
         return outputMessage
 
+
     # daemon that runs the check update every X seconds
+    # frequencySecs : number of seconds between calls to checkForUpdateAndSend()
     def checkUpdateDaemon(self, frequencySecs):
         self.checkForUpdateAndSend()
         threading.Timer(frequencySecs, self.checkUpdateDaemon, [frequencySecs]).start()
@@ -121,8 +135,8 @@ class Covid19Updater:
 if __name__ == "__main__":
     # parses in command line input
     parser = argparse.ArgumentParser(
-        description='Sends notifications and fetches data on COVID-19 in San Diego',
-        epilog='Copyright Michael Kukar 2020.'
+        description='Sends updates and analysis on current state of COVID-19 in San Diego',
+        epilog='Copyright Michael Kukar 2020. MIT License.'
         )
     parser.add_argument("-c", "--config", dest="config", default="config.json", help="json configuration file")
     parser.add_argument("-d", "--database", dest="db", default="covid19.db", help="sqlite databse file")

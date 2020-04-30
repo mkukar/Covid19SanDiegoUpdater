@@ -1,7 +1,6 @@
-# reads data from web on coronavirus
-# tailored for San Diego, may be adaptable to other govmt websites
-# CB: Michael Kukar
-# Copyright Michael Kukar 2020.
+# reads data from web on coronavirus and interacts with database
+# tailored for San Diego, may be adaptable to other websites
+# Copyright Michael Kukar 2020. MIT License.
 
 import sqlite3
 from collections import Mapping
@@ -23,10 +22,15 @@ class WebReader:
     )
     LATEST_ENTRY_QUERY = "SELECT DATE, TOTAL_CASES, NEW_CASES, NEW_TESTS, HOSPITALIZATIONS, INTENSIVE_CARE, DEATHS from DATA ORDER BY strftime('%Y-%m-%d', DATE) DESC"
 
+
     def __init__(self, dbFilename):
         # stores filename of database
         self.dbFilename = dbFilename
 
+
+    # adds the entry to the database
+    # entry  : dict entry of data to add
+    # return : true if successful, false on error
     def addEntryToDatabase(self, entry):
         # makes sure entry is a dictionary
         if entry is None or not isinstance(entry, Mapping):
@@ -57,6 +61,9 @@ class WebReader:
             return False
         return True
 
+
+    # reads the most recent entry from the database
+    # return : dictionary of latest db entry
     def readLatestEntryFromDatabase(self):
         res = None
         try:
@@ -75,6 +82,10 @@ class WebReader:
             resDict[field] = res[idx]
         return resDict
 
+
+    # checks if new data is available to be read
+    # url    : (optional) url to read from. Default is SD_COVID19_URL
+    # return : true if current website date is newer than newest db entry, false otherwise
     def isNewDataAvailable(self, url=None):
         if url is None:
             url = self.SD_COVID19_URL
@@ -112,6 +123,10 @@ class WebReader:
         else:
             return False
 
+
+    # reads the current state of the website
+    # url    : (optional) url to read from. Default is SD_COVID19_URL
+    # return : dictionary of website data, or None on error
     def readLatestEntryFromWeb(self, url=None):
         if url is None:
             url = self.SD_COVID19_URL

@@ -1,5 +1,5 @@
 # sends "texts" through an email server
-# Copyright Michael Kukar 2020.
+# Copyright Michael Kukar 2020. MIT License.
 
 import smtplib
 from email.message import EmailMessage
@@ -10,6 +10,7 @@ class EmailTexter:
         'VERIZON' : 'vtext.com',
         'TMOBILE' : 'tmomail.net'
     }
+
 
     # gets the smtp server object to send emails
     # NOTE - uses SSL
@@ -28,6 +29,7 @@ class EmailTexter:
             return None
         return server
  
+
     # creates email address from phone number
     # phoneNumber : 10 digit string phone number e.g. 5551234567
     # carrier     : carrier name from SUPPORTED_CARRIERS keys
@@ -39,6 +41,7 @@ class EmailTexter:
             return None
         return str(phoneNumber) + '@' + self.SUPPORTED_CARRIERS[carrier]
     
+
     # sends email from phone number
     # emailAddr : email to send to
     # message   : message to send
@@ -63,4 +66,3 @@ class EmailTexter:
         msg.set_content(message)
         server.send_message(msg)
         return True
-
