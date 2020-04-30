@@ -9,14 +9,14 @@
 - Email address (only tested with gmail)
 
 # Setup
-1. Install all dependencies (see dependencies section)
-2. Copy config_template.json to config.json and populate it with your information
-3. Edit the dataset_up_to_4_25.json to reflect the data you want to import
-Note - This step is optional but will give you a starting point to populate your database if you chose
-3. Run `initialize_db_file.py --data dataset_up_to_4_25.json`
-This will create a data file covid19.db that will be used to store the historical dataset
-3. Run `covid19_updater.py`
-Note - This program will run continuously in the background until you close it. If running in a terminal on linux, you may want to add "nohup" before to prevent it from closing.
+1. Install all dependencies (see dependencies section).
+2. Copy config_template.json to config.json and populate it with your information.
+3. Edit the dataset_up_to_4_25.json to reflect the data you want to import.
+This step is optional but will give you a starting point to populate your database if you chose.
+3. Run `initialize_db_file.py --data dataset_up_to_4_25.json`.
+This will create a data file covid19.db that will be used to store the historical dataset.
+3. Run `covid19_updater.py`.
+This program will run continuously in the background until you close it. If running in a terminal on linux, you may want to add "nohup" before to prevent it from closing.
 
 # Usage
 ## covid19_updater
@@ -81,11 +81,11 @@ The main feature you must locate is a single website page that at minimum contai
 Finding another site that has the historical total cases per day will also be useful if you want to backfill your data.
 Once you have found this website, do the following:
 
-1. Open web_reader.py in your favorite text editor
-2. Edit SD_COVID19_URL to instead point to the website you found (around Line 17)
+1. Open web_reader.py in your favorite text editor.
+2. Edit SD_COVID19_URL to instead point to the website you found (around Line 17).
 3. Edit the isNewDataAvailable function to extract the date from this website using BeautifulSoup (around lines 98 - 105). You can use the existing code as a starting point.
 4. Edit the readLatestEntryFromWeb function to extract the date and other pertinent fields using BeautifulSoup (around lines 134-153). If you do not have all the fields you can leave them as None.
-5. To test your changes, use the test_web_reader.py test suite. You will have to replace the test_valid_data_website.html with a copy of your local website (cntrl-S in firefox/chrome)
+5. To test your changes, use the test_web_reader.py test suite. You will have to replace the test_valid_data_website.html with a copy of your local website (cntrl-S in firefox/chrome).
 
 If you have made this change, please submit a pull request with a seperate branch or upload your code seperately to your own GitHub!
 
