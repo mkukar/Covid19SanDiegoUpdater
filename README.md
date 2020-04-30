@@ -86,7 +86,7 @@ Once you have found this website, do the following:
 3. Edit the isNewDataAvailable function to extract the date from this website using BeautifulSoup (around lines 98 - 105). You can use the existing code as a starting point.
 4. Edit the readLatestEntryFromWeb function to extract the date and other pertinent fields using BeautifulSoup (around lines 134-153). If you do not have all the fields you can leave them as None.
 5. To test your changes, use the test_web_reader.py test suite. You will have to replace the test_valid_data_website.html with a copy of your local website (cntrl-S in firefox/chrome).
-
+6. Change the link in covid19_updater.py in checkForUpdateAndSend() to your website (around line 92). This is the URL sent in the text message notification.
 If you have made this change, please submit a pull request with a seperate branch or upload your code seperately to your own GitHub!
 
 # Author
