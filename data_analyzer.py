@@ -51,7 +51,7 @@ class DataAnalyzer:
         if len(newCasesEachDay) < 2:
             return 0
         for i in range(len(newCasesEachDay)-1):
-            diffBetweenEachDay.append(abs(newCasesEachDay[i]-newCasesEachDay[i+1]))
+            diffBetweenEachDay.append(newCasesEachDay[i]-newCasesEachDay[i+1])
         trend = statistics.mean(diffBetweenEachDay)
 
         return trend

@@ -91,6 +91,18 @@ class UnitTestCases(unittest.TestCase):
             self.wr.addEntryToDatabase(data)
         self.assertEqual(2.0, self.da.getNewCasesTrend(days=3))    
 
+    def test_getNewCasesTrendReturnsCorrectTrendWithNegativeAndPositiveVariation(self):
+        daysData = []
+        for x in range(4):
+            daysData.append(dict(self.MAX_NEW_CASES_ENTRY))
+        daysData[0]['new_cases'], daysData[0]['date'] = 10, '2020-10-10'
+        daysData[1]['new_cases'], daysData[1]['date'] = 5, '2020-10-11' 
+        daysData[2]['new_cases'], daysData[2]['date'] = 10, '2020-10-12'   
+        daysData[3]['new_cases'], daysData[3]['date'] = 0, '2020-10-13'   
+        for data in daysData:     
+            self.wr.addEntryToDatabase(data)
+        self.assertEqual(-3.3333333333333335, self.da.getNewCasesTrend(days=4))
+
     def test_getNewCasesTrendReturnsZeroIfDaysIsNotGreaterThanTwo(self):
         self.assertEqual(0.0, self.da.getNewCasesTrend(days=-1))
         self.assertEqual(0.0, self.da.getNewCasesTrend(days=0))
@@ -107,7 +119,6 @@ class UnitTestCases(unittest.TestCase):
             self.wr.addEntryToDatabase(data)
         self.assertEqual(30.0, self.da.getLatestNewCasesAverage(days=3))
 
-    
     def test_getLatestNewCasesAverageReturnsCorrectAverageSkippingEntriesThatAreNone(self):
         daysData = []
         for x in range(3):
