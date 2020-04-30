@@ -84,15 +84,18 @@ class Covid19Updater:
             textMessage = "LATEST SD COVID19 UPDATE:\n"
             textMessage += "New Cases: " + str(latestWebData['new_cases']) + "\n"
             textMessage += "Total Cases: " + str(latestWebData['total_cases']) + "\n"
-            textMessage += "https://bit.ly/2W8uQJM" # shortened URL to SD Covid19 Website
 
             for email in self.phoneNumberEmails:
+                # t-mobile does not allow website link, so only add if that is not the number
+                messageToSend = textMessage
+                if not "tmomail.net" in email:
+                    messageToSend += "https://bit.ly/2W8uQJM" # shortened URL to SD Covid19 Website
                 self.et.sendMessage(
                     email,
-                    textMessage,
+                    messageToSend,
                     emailserver
                 )
-                time.sleep(5) # needs time in between sends to make sure all messages make it
+            time.sleep(1) # prevents messages from being sent out of order
 
             # generates a second message that is analysis
             analysisTextMessage = self.getAnalysisMessage()
@@ -102,7 +105,6 @@ class Covid19Updater:
                     analysisTextMessage,
                     emailserver
                 )
-                time.sleep(5) # needs time in between sends to make sure all messages make it
 
             emailserver.close()
     
