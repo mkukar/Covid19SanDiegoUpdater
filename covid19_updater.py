@@ -2,7 +2,7 @@
 # Sends updates and analysis on current state of COVID-19 in San Diego 
 # Copyright Michael Kukar 2020. MIT License.
 
-import sys, os, json, threading, argparse
+import sys, os, json, threading, argparse, time
 
 from web_reader import WebReader
 from email_texter import EmailTexter
@@ -92,6 +92,7 @@ class Covid19Updater:
                     textMessage,
                     emailserver
                 )
+                time.sleep(5) # needs time in between sends to make sure all messages make it
 
             # generates a second message that is analysis
             analysisTextMessage = self.getAnalysisMessage()
@@ -101,6 +102,8 @@ class Covid19Updater:
                     analysisTextMessage,
                     emailserver
                 )
+                time.sleep(5) # needs time in between sends to make sure all messages make it
+
             emailserver.close()
     
 
@@ -111,7 +114,7 @@ class Covid19Updater:
         # format is up to 3 facts, ranked by importance
         # first up is if latest cases is max of all time
         if self.da.checkIfLatestIsMaxNewCases():
-            factBlurbs.append("- Today is the highest number of new cases so far")
+            factBlurbs.append("- Today is the highest number of new cases yet")
         # now gets the 3-day trend to see if we're going up or down
         dayTrend = self.da.getNewCasesTrend(days=3)
         if dayTrend != 0:
